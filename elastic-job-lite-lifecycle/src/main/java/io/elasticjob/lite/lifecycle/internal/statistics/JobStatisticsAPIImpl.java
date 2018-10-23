@@ -76,6 +76,7 @@ public final class JobStatisticsAPIImpl implements JobStatisticsAPI {
         result.setInstanceCount(getJobInstanceCount(jobName));
         result.setShardingTotalCount(liteJobConfig.getTypeConfig().getCoreConfig().getShardingTotalCount());
         result.setStatus(getJobStatus(jobName));
+        result.setParameter(liteJobConfig.getTypeConfig().getCoreConfig().getJobParameter());
         return result;
     }
     

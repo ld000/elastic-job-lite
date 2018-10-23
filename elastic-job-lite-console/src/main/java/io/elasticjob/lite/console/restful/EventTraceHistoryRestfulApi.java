@@ -26,6 +26,7 @@ import io.elasticjob.lite.event.rdb.JobEventRdbSearch;
 import io.elasticjob.lite.event.type.JobExecutionEvent;
 import io.elasticjob.lite.event.type.JobStatusTraceEvent;
 import org.apache.commons.dbcp.BasicDataSource;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.sql.DataSource;
 import javax.ws.rs.Consumes;
@@ -70,6 +71,13 @@ public final class EventTraceHistoryRestfulApi {
             return new JobEventRdbSearch.Result<>(0, new ArrayList<JobExecutionEvent>());
         }
         JobEventRdbSearch jobEventRdbSearch = new JobEventRdbSearch(setUpEventTraceDataSource());
+
+        if (StringUtils.isBlank(uriInfo.getQueryParameters().getFirst("sort"))
+                || StringUtils.isBlank(uriInfo.getQueryParameters().getFirst("order"))) {
+            uriInfo.getQueryParameters().putSingle("sort", "id");
+            uriInfo.getQueryParameters().putSingle("order", "desc");
+        }
+
         return jobEventRdbSearch.findJobExecutionEvents(buildCondition(uriInfo, new String[]{"jobName", "ip", "isSuccess"}));
     }
     
