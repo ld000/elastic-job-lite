@@ -74,7 +74,7 @@ public final class EventTraceHistoryRestfulApi {
 
         if (StringUtils.isBlank(uriInfo.getQueryParameters().getFirst("sort"))
                 || StringUtils.isBlank(uriInfo.getQueryParameters().getFirst("order"))) {
-            uriInfo.getQueryParameters().putSingle("sort", "id");
+            uriInfo.getQueryParameters().putSingle("sort", "startTime");
             uriInfo.getQueryParameters().putSingle("order", "desc");
         }
 
